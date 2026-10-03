@@ -9,6 +9,7 @@ ENV/
 env/
 .env
 *.db
+*.sqlite3
 
 # Node
 node_modules/
@@ -16,8 +17,15 @@ dist/
 dist-ssr/
 *.local
 
+# Cloud & Deployment Artifacts
+.vercel
+.catalystrc
+*.catalystrc
+*.log
+
 # IDE & OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+
