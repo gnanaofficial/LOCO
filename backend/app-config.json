@@ -1,4 +1,7 @@
 {
-  "command": "uvicorn main:app --host 0.0.0.0 --port $X_ZOHO_CATALYST_LISTEN_PORT",
-  "stack": "python3.11"
+  "name": "loco",
+  "command": "python3 -m uvicorn main:app --host 0.0.0.0 --port 8080",
+  "stack": "python_3_11",
+  "source": ".",
+  "build_path": "."
 }

@@ -1,9 +1,10 @@
 {
   "appsail": [
     {
-      "name": "loco-backend",
+      "name": "loco",
       "source": ".",
-      "stack": "python3.11"
+      "build_path": ".",
+      "stack": "python_3_11"
     }
   ]
 }

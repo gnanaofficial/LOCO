@@ -15,10 +15,24 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configurable CORS for Production and Local Development
+# Production CORS: allow Vercel frontend + localhost dev
+CORS_ORIGINS = [
+    "https://loco-lake.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
+]
+
+# Allow extra origins from ALLOWED_ORIGINS env var (comma-separated)
+if settings.ALLOWED_ORIGINS and settings.ALLOWED_ORIGINS != ["*"]:
+    for o in settings.ALLOWED_ORIGINS:
+        if o not in CORS_ORIGINS:
+            CORS_ORIGINS.append(o)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS if settings.ALLOWED_ORIGINS else ["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
