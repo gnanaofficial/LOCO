@@ -1,4 +1,5 @@
 import logging
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import settings
@@ -24,7 +25,6 @@ CORS_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 
-# Allow extra origins from ALLOWED_ORIGINS env var (comma-separated)
 if settings.ALLOWED_ORIGINS and settings.ALLOWED_ORIGINS != ["*"]:
     for o in settings.ALLOWED_ORIGINS:
         if o not in CORS_ORIGINS:
@@ -46,4 +46,6 @@ def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    # Zoho Catalyst AppSail injects the port via X_ZOHO_CATALYST_LISTEN_PORT
+    port = int(os.environ.get("X_ZOHO_CATALYST_LISTEN_PORT", os.environ.get("PORT", "8080")))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
